@@ -1,0 +1,17 @@
+{
+  "name": "apbites",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "emulators": "firebase emulators:start --project demo-apbites",
+    "seed": "node seed/seed.js",
+    "test": "node --test server/test/*.test.js",
+    "build": "npm --prefix web run build",
+    "deploy:rules": "firebase deploy --only firestore"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.local
+.secret.local
+functions/.runtimeconfig.json
+firebase-debug*.log
+firestore-debug*.log
+ui-debug*.log
+pubsub-debug*.log
+.firebase/
+emulator-data/
+.DS_Store
+.claude/settings.local.json

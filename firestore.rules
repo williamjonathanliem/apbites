@@ -1,0 +1,50 @@
+rules_version = '2';
+
+// Clients (student app, stall screen) may READ but never WRITE.
+// Every write (orders, slots, balances, status) goes through Cloud Functions,
+// which use the Admin SDK and bypass these rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /stalls/{stallId} {
+      allow read: if true;
+      allow write: if false;
+
+      match /menuItems/{itemId} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+
+    // Collection-group reads of all menus (search across stalls).
+    match /{path=**}/menuItems/{itemId} {
+      allow read: if true;
+    }
+
+    match /slots/{slotId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Prototype: no login, one fixed sample student. In APSpace the
+    // student's own session would gate this read.
+    match /students/{tpNumber} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /orders/{orderId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
